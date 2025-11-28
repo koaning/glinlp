@@ -1,0 +1,8 @@
+classifications:
+- sentiment:
+    labels:
+    - positive
+    - negative
+entities:
+- person
+model_name: fastino/gliner2-base-v1

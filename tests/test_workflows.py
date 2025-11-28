@@ -129,10 +129,10 @@ def test_cli_validate_schema_outputs_json(tmp_path):
     """
     schema_path = _write_schema(tmp_path / "schema.yaml")
     runner = CliRunner()
-    result = runner.invoke(app, ["validate", str(schema_path)])
+    result = runner.invoke(app, ["schema", "validate", str(schema_path)])
     assert result.exit_code == 0
     assert "Validated schema:" in result.stdout
-    assert "JSON schema" in result.stdout
+    assert '"model_name": "fastino/gliner2-base-v1"' in result.stdout
 
 
 def test_cli_infer_jsonl_appends_predictions(tmp_path, monkeypatch):
@@ -174,3 +174,21 @@ def test_cli_infer_jsonl_appends_predictions(tmp_path, monkeypatch):
     assert set(preds.keys()) == {"classes", "entities", "structures"}
     assert preds["classes"]["sentiment"]["label"] == "positive"
     assert "deal" in preds["structures"]
+
+
+def test_cli_schema_json_saves_to_file(tmp_path):
+    runner = CliRunner()
+    output = tmp_path / "nlp-schema.json"
+    result = runner.invoke(app, ["schema", "json", "--output", str(output)])
+    assert result.exit_code == 0
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["title"] == "NLPSchema"
+
+
+def test_cli_schema_create_generates_file(tmp_path):
+    output = tmp_path / "created.yaml"
+    runner = CliRunner()
+    result = runner.invoke(app, ["schema", "create", str(output)])
+    assert result.exit_code == 0
+    created = NLPSchema.from_path(output)
+    assert created.model_name == "fastino/gliner2-base-v1"

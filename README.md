@@ -30,7 +30,9 @@ for result in nlp.pipe(["text 1", "text 2"]):
 ### CLI helpers
 
 ```bash
-glinlp validate examples/schema.example.yaml
+glinlp schema validate examples/schema.example.yaml
+glinlp schema json --output glinlp.schema.json  # generate editor autocomplete spec
+glinlp schema create new-schema.yaml
 glinlp infer-jsonl examples/schema.example.yaml data/input.jsonl data/output.jsonl
 ```
 

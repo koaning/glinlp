@@ -1,0 +1,103 @@
+Validated schema:
+{
+  "model_name": "fastino/gliner2-base-v1",
+  "default_threshold": 0.5,
+  "batch_size": 4,
+  "include_confidence": true,
+  "entities": [
+    {
+      "label": "person",
+      "description": null,
+      "threshold": null
+    },
+    {
+      "label": "organization",
+      "description": "Company or institution names",
+      "threshold": null
+    },
+    {
+      "label": "product",
+      "description": null,
+      "threshold": null
+    }
+  ],
+  "classifications": [
+    {
+      "name": "sentiment",
+      "labels": [
+        {
+          "label": "positive",
+          "description": "Favorable tone"
+        },
+        {
+          "label": "neutral",
+          "description": "Informational or balanced tone"
+        },
+        {
+          "label": "negative",
+          "description": "Critical or concerned tone"
+        }
+      ],
+      "multi_label": false,
+      "threshold": 0.55,
+      "include_confidence": true,
+      "class_act": "auto"
+    },
+    {
+      "name": "document_type",
+      "labels": [
+        {
+          "label": "news",
+          "description": "Informative article"
+        },
+        {
+          "label": "review",
+          "description": null
+        },
+        {
+          "label": "opinion",
+          "description": null
+        }
+      ],
+      "multi_label": false,
+      "threshold": 0.5,
+      "include_confidence": true,
+      "class_act": "auto"
+    }
+  ],
+  "structures": [
+    {
+      "name": "announcement",
+      "fields": [
+        {
+          "name": "subject",
+          "dtype": "str",
+          "description": "Main announcement topic",
+          "choices": null,
+          "threshold": null
+        },
+        {
+          "name": "date",
+          "dtype": "str",
+          "description": "Key dates mentioned",
+          "choices": null,
+          "threshold": null
+        },
+        {
+          "name": "product",
+          "dtype": "str",
+          "description": "Linked products",
+          "choices": null,
+          "threshold": null
+        },
+        {
+          "name": "highlights",
+          "dtype": "list",
+          "description": "Important bullet points",
+          "choices": null,
+          "threshold": null
+        }
+      ]
+    }
+  ]
+}

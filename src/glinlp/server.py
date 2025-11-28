@@ -20,16 +20,19 @@ class PipePayload(BaseModel):
 def create_app(nlp: NLP) -> FastAPI:
     app = FastAPI(
         title="glinlp",
-        description="Minimal spaCy-like wrapper on top of GLiNER2",
+        description="Minimal server for GLiNER2",
         version="0.1.0",
     )
 
+    @app.get("/")
+    @app.get("health")
+    @app.get("healthz")
+    def health():
+        return {"status": "alive"}
+
     @app.get("/schema")
     def get_schema():
-        return {
-            "schema": nlp.schema.model_dump(),
-            "json_schema": nlp.schema.model_json_schema(),
-        }
+        return nlp.schema.model_json_schema()
 
     @app.post("/extract")
     def extract(payload: TextPayload):
