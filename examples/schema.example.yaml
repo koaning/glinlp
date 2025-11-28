@@ -14,7 +14,7 @@ classifications:
         positive: "Favorable tone"
         neutral: "Informational or balanced tone"
         negative: "Critical or concerned tone"
-      cls_threshold: 0.55
+      threshold: 0.55
   - name: document_type
     labels:
       - label: news
@@ -24,7 +24,15 @@ classifications:
 
 structures:
   - announcement:
-      - subject::str::Main announcement topic
-      - date::str::Key dates mentioned
-      - product::str::Linked products
-      - highlights::list::Important bullet points
+      - name: subject
+        dtype: str
+        description: Main announcement topic
+      - name: date
+        dtype: str
+        description: Key dates mentioned
+      - name: product
+        dtype: str
+        description: Linked products
+      - name: highlights
+        dtype: list
+        description: Important bullet points

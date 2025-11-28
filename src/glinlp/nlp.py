@@ -16,13 +16,26 @@ from .schema import NLPSchema
 logger = logging.getLogger(__name__)
 
 
-@dataclass
+@dataclass(init=False)
 class Document:
     text: str
     classes: Dict[str, Any]
     entities: List[Dict[str, Any]]
     structures: Dict[str, Any]
-    raw: Dict[str, Any]
+
+    def __init__(
+        self,
+        text: str,
+        classes: Dict[str, Any],
+        entities: List[Dict[str, Any]],
+        structures: Dict[str, Any],
+        raw: Any | None = None,
+    ):
+        self.text = text
+        self.classes = classes
+        self.entities = entities
+        self.structures = structures
+        # Ignore `raw` to keep memory footprint small while staying backward compatible.
 
     def to_payload(self, include_text: bool = True) -> Dict[str, Any]:
         payload = {
@@ -70,7 +83,7 @@ class NLP:
                 task.name,
                 task.gliner_labels(),
                 multi_label=task.multi_label,
-                cls_threshold=task.cls_threshold,
+                cls_threshold=task.threshold,
                 class_act=task.class_act,
             )
 
@@ -94,7 +107,6 @@ class NLP:
                 classes={},
                 entities=[],
                 structures={},
-                raw={},
             )
         raw = self.extractor.extract(
             text,
@@ -151,7 +163,6 @@ class NLP:
             classes=classes,
             entities=entities,
             structures=structures,
-            raw=raw,
         )
 
 

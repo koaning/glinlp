@@ -65,12 +65,18 @@ classifications:
       - label: positive
       - label: neutral
       - label: negative
-    cls_threshold: 0.55
+    threshold: 0.55
 structures:
   - product:
-      - name::str::Product name
-      - price::str::Currency and amount
-      - features::list::Bulleted list of features
+      - name: name
+        dtype: str
+        description: Product name
+      - name: price
+        dtype: str
+        description: Currency and amount
+      - name: features
+        dtype: list
+        description: Bulleted list of features
 ```
 
 ### Marimo notebook

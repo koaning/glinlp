@@ -23,8 +23,8 @@ def _write_schema(path: Path) -> Path:
         "structures": [
             {
                 "deal": [
-                    "company::str::Company referenced",
-                    "value::str::Transaction size",
+                    {"name": "company", "dtype": "str", "description": "Company referenced"},
+                    {"name": "value", "dtype": "str", "description": "Transaction size"},
                 ]
             }
         ],

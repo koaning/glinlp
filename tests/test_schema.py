@@ -20,7 +20,7 @@ def test_schema_handles_multiple_input_shortcuts(tmp_path):
     Mini tutorial:
     - entities accept bare strings and dicts with descriptions
     - classifications can be expressed as {task: [labels]}
-    - structured fields support the "::" shorthand
+    - structured fields use more explicit dictionaries
     """
     schema_path = write_schema(
         tmp_path,
@@ -41,8 +41,12 @@ def test_schema_handles_multiple_input_shortcuts(tmp_path):
                 science: "Scientific content"
         structures:
           - recap:
-              - headline::str::Main headline
-              - highlights::list::Important bullets
+              - name: headline
+                dtype: str
+                description: Main headline
+              - name: highlights
+                dtype: list
+                description: Important bullets
         """,
     )
 
@@ -83,7 +87,14 @@ def test_schema_can_be_defined_in_json(tmp_path):
         "classifications": [
             {"sentiment": {"labels": ["positive", "negative"]}},
         ],
-        "structures": [{"summary": ["title::str", "bullets::list"]}],
+        "structures": [
+            {
+                "summary": [
+                    {"name": "title", "dtype": "str"},
+                    {"name": "bullets", "dtype": "list"},
+                ]
+            }
+        ],
     }
     path = tmp_path / "schema.json"
     path.write_text(json.dumps(data), encoding="utf-8")

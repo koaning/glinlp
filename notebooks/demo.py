@@ -22,12 +22,6 @@ def _():
 
 
 @app.cell
-def _(nlp):
-    nlp.schema.classifications
-    return
-
-
-@app.cell
 def _(NLP, schema_path):
     nlp = NLP.from_schema(schema_path)
     sample_text = "Apple CEO Tim Cook introduced the Vision Pro headset in Cupertino."
@@ -37,12 +31,15 @@ def _(NLP, schema_path):
 
 @app.cell
 def _(nlp):
+    from rich import print 
+
     texts = [
         "Meta is reportedly acquiring a robotics startup from Berlin.",
-        "Microsoft unveiled new Azure pricing tiers in Seattle.",
+        "Microsoft unveiled MEGAPIPE, on Jan 1st that's super popular and blue. .",
     ]
     batch = list(nlp.pipe(texts))
-    batch
+
+    print(batch[1])
     return
 
 

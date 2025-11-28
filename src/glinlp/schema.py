@@ -67,7 +67,7 @@ class ClassificationTask(BaseModel):
     name: str
     labels: List[ClassificationLabel]
     multi_label: bool = False
-    cls_threshold: float = Field(default=0.5, ge=0.0, le=1.0)
+    threshold: float = Field(default=0.5, ge=0.0, le=1.0)
     include_confidence: bool = True
     class_act: Literal["auto", "sigmoid", "softmax"] = "auto"
 
