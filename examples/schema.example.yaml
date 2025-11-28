@@ -1,0 +1,30 @@
+model_name: fastino/gliner2-base-v1
+batch_size: 4
+include_confidence: true
+default_threshold: 0.5
+
+entities:
+  - person
+  - organization: "Company or institution names"
+  - product
+
+classifications:
+  - sentiment:
+      labels:
+        positive: "Favorable tone"
+        neutral: "Informational or balanced tone"
+        negative: "Critical or concerned tone"
+      cls_threshold: 0.55
+  - name: document_type
+    labels:
+      - label: news
+        description: "Informative article"
+      - label: review
+      - label: opinion
+
+structures:
+  - announcement:
+      - subject::str::Main announcement topic
+      - date::str::Key dates mentioned
+      - product::str::Linked products
+      - highlights::list::Important bullet points
